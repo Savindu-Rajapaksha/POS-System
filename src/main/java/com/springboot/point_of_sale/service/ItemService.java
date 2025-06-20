@@ -10,4 +10,16 @@ public interface ItemService {
     String itemSave(ItemSaveRequestDTO itemSaveRequestDTO);
 
     List<ItemGetResponseDTO> getItemByNameAndStatus(String itemName);
+    
+    List<ItemGetResponseDTO> getAllItems();
+    
+    ItemGetResponseDTO getItemById(int id);
+    
+    String updateItem(int id, ItemSaveRequestDTO itemSaveRequestDTO);
+    
+    String deleteItem(int id);
+    
+    List<ItemGetResponseDTO> getItemsByActiveStatus(boolean status);
+    
+    String updateItemQuantity(int id, double quantity);
 }

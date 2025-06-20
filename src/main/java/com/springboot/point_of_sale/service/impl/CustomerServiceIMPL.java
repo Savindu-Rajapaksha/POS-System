@@ -57,7 +57,7 @@ public class CustomerServiceIMPL implements CustomerService {
             );
             return customerDTO;
         }else {
-            throw new NotFoundException("Customer not found");
+            throw new NotFoundException("Customer not found" + id);
         }
     }
 
@@ -87,7 +87,7 @@ public class CustomerServiceIMPL implements CustomerService {
             customerRepo.deleteById(id);
             return "customer deleted" ;
         }else {
-            throw new NotFoundException("Customer not found");
+            throw new NotFoundException("Customer not found" + id);
         }
     }
 

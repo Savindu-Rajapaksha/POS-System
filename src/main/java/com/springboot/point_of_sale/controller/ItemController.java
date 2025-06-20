@@ -27,7 +27,7 @@ public class ItemController {
     @PostMapping(path = "/item-save")
     public ResponseEntity<StandardResponse> itemSave(@RequestBody ItemSaveRequestDTO itemSaveRequestDTO) {
         itemService.itemSave(itemSaveRequestDTO);
-        String message = "Item Saved" + itemSaveRequestDTO.getItemName();
+        String message = "Item Saved " + itemSaveRequestDTO.getItemName();
         return new ResponseEntity<StandardResponse>(
                 new StandardResponse(201, "Updated", message),
                 HttpStatus.CREATED
@@ -42,6 +42,62 @@ public class ItemController {
                 HttpStatus.OK
         );
     }
-
-
+    
+    @GetMapping(path = "/get-all-items")
+    public ResponseEntity<StandardResponse> getAllItems() {
+        List<ItemGetResponseDTO> items = itemService.getAllItems();
+        return new ResponseEntity<StandardResponse>(
+                new StandardResponse(200, "Success", items),
+                HttpStatus.OK
+        );
+    }
+    
+    @GetMapping(path = "/get-by-id/{id}")
+    public ResponseEntity<StandardResponse> getItemById(@PathVariable int id) {
+        ItemGetResponseDTO item = itemService.getItemById(id);
+        return new ResponseEntity<StandardResponse>(
+                new StandardResponse(200, "Success", item),
+                HttpStatus.OK
+        );
+    }
+    
+    @PutMapping(path = "/update-item/{id}")
+    public ResponseEntity<StandardResponse> updateItem(
+            @PathVariable int id,
+            @RequestBody ItemSaveRequestDTO itemSaveRequestDTO) {
+        String message = itemService.updateItem(id, itemSaveRequestDTO);
+        return new ResponseEntity<StandardResponse>(
+                new StandardResponse(200, "Success", message),
+                HttpStatus.OK
+        );
+    }
+    
+    @DeleteMapping(path = "/delete-item/{id}")
+    public ResponseEntity<StandardResponse> deleteItem(@PathVariable int id) {
+        String message = itemService.deleteItem(id);
+        return new ResponseEntity<StandardResponse>(
+                new StandardResponse(200, "Success", message),
+                HttpStatus.OK
+        );
+    }
+    
+    @GetMapping(path = "/get-by-status/{status}")
+    public ResponseEntity<StandardResponse> getItemsByActiveStatus(@PathVariable boolean status) {
+        List<ItemGetResponseDTO> items = itemService.getItemsByActiveStatus(status);
+        return new ResponseEntity<StandardResponse>(
+                new StandardResponse(200, "Success", items),
+                HttpStatus.OK
+        );
+    }
+    
+    @PutMapping(path = "/update-qty/{id}")
+    public ResponseEntity<StandardResponse> updateItemQuantity(
+            @PathVariable int id,
+            @RequestParam double quantity) {
+        String message = itemService.updateItemQuantity(id, quantity);
+        return new ResponseEntity<StandardResponse>(
+                new StandardResponse(200, "Success", message),
+                HttpStatus.OK
+        );
+    }
 }
